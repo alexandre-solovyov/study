@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <iostream>
 
 typedef struct 
 {
@@ -96,29 +97,50 @@ std::vector<Aeroport> load( const char* filename )
 	return res;
 }
 
+void print_help()
+{
+	std::cout << "--help либо -h  - запуск программы в режиме получения справки" << std::endl;
+	std::cout << "-с [N] [file_name]  - запуск программы в режиме создания электронной таблицы записей, N –количество записей, file_name – имя текстового файла, в котором будет сохранен массив (таблица) записей" << std::endl;
+	std::cout << "-r [N] [file_name]  - запуск программы в режиме чтения содержимого текстового файла file_name, на экран должны быть выведены не более N записей" << std::endl;
+}
+
 int main( int argc, char** argv )
 {
 	srand(time(0));
 	
 	if( argc==2 )
 	{
-		//if( strcmp( argv[1], "--help" )==0 )
-  		  //print_help();
-		//else
-		  //read_file( argv[1], 0 );
+		if( strcmp( argv[1], "--help" )==0 || strcmp( argv[1], "-h" )==0 )
+		{
+  		  print_help();
+		}
+		return 0;
 	}
 	
-	/*int n = 10;
-	std::vector<Aeroport> a;
-	a.resize( n );
-	for( int i=0; i<n; i++)
-		a[i] = generate();
-	save( "aero.data", a );*/
-	
-	
-	std::vector<Aeroport> b = load( "aero.data" );
-	for( int i=0, n=b.size(); i<n; i++ )
-		print( b[i] );
-	
+	if( argc==4 )
+	{
+		if( strcmp(argv[1], "-c")==0 )
+		{
+			int n;
+			sscanf( argv[2], "%d", &n );
+			char* filename = argv[3];
+			std::vector<Aeroport> a;
+			a.resize( n );  // РёР·РјРµРЅРёС‚СЊ СЂР°Р·РјРµСЂ РІРµРєС‚РѕСЂР° (СѓРІРµР»РёС‡РёС‚СЊ РјР°СЃСЃРёРІ)
+			for( int i=0; i<n; i++)
+				a[i] = generate();
+			save( filename, a );
+			return 0;
+		}
+		if( strcmp(argv[1], "-r")==0 )
+		{
+			int n;
+			sscanf( argv[2], "%d", &n );
+			char* filename = argv[3];
+			std::vector<Aeroport> a = load( filename );
+			for( int i=0, s=a.size(); i<s && i<n; i++ )
+				print( a[i] );
+			return 0;
+		}
+	}
 	return 0;
 }
