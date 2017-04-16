@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+ 
+int main()
+{
+    int* p;
+    int n=25, i, k;
+    p = malloc(n *sizeof(int));
+    for(i=0; i<n; i++)
+    {
+        p[i] = 0;
+        printf(" %i ", p[i]);
+    }
+        printf("\n");
+         for(i=0; i<n; i++)
+         {
+              p[2] = 15;
+              printf(" %i ", p[i]);
+         }
+          printf("\n");
+              for(i=0; i<n; i++)
+              {
+                  p[20] = 26;
+                  printf(" %i ", p[i]);
+              }
+               printf("\n");
+                    for(i=0; i<n; i++)
+                    {
+                             p[10] = 40;
+                             printf(" %i ", p[i]);
+                    }
+                     printf("\n");
+                     printf("\n");
+ 
+                     for(i=0; i<n; i++)
+                     {
+                          if (p[i] == 26 )
+                              {
+                                  p[i] = 0;
+                              
+                              }    
+                          printf(" %i ", p[i]);
+                     }    
+                   
+ 
+ 
+ 
+return 0;
+}    
